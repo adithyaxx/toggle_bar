@@ -11,7 +11,7 @@ class ToggleBar extends StatefulWidget {
   final Function(int) onSelectionUpdated;
 
   ToggleBar(
-      {this.labels,
+      {@required this.labels,
       this.backgroundColor = Colors.black,
       this.selectedTabColor = Colors.deepPurple,
       this.selectedTextColor = Colors.white,
@@ -51,7 +51,7 @@ class _ToggleBarState extends State<ToggleBar> {
           itemBuilder: (context, index) {
             return GestureDetector(
                 child: Container(
-                    width: (MediaQuery.of(context).size.width - 32) / 7,
+                    width: (MediaQuery.of(context).size.width - 32) / widget.labels.length,
                     padding:
                         EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
                     child: Text(
