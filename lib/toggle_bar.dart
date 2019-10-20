@@ -51,7 +51,8 @@ class _ToggleBarState extends State<ToggleBar> {
           itemBuilder: (context, index) {
             return GestureDetector(
                 child: Container(
-                    width: (MediaQuery.of(context).size.width - 32) / widget.labels.length,
+                    width: (MediaQuery.of(context).size.width - 32) /
+                        widget.labels.length,
                     padding:
                         EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
                     child: Text(

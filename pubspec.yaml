@@ -1,5 +1,5 @@
 name: toggle_bar
-description: A horizontal bar of customisable toggle buttons. 
+description: A horizontal bar of toggle buttons with customisable colors and labels. 
 version: 0.0.1
 author: Prem Adithya <hello@adithya.pw>
 homepage: https://github.com/adithyaxx/toggle_bar
