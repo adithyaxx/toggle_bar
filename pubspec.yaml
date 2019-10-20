@@ -2,7 +2,7 @@ name: toggle_bar
 description: A horizontal bar of customisable toggle buttons. 
 version: 0.0.1
 author: Prem Adithya <hello@adithya.pw>
-homepage:
+homepage: https://github.com/adithyaxx/toggle_bar
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
