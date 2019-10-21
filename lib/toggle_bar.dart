@@ -5,9 +5,30 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/// A horizontal bar of toggle tabs with customisable colors and labels.
+///
+/// The provided list of labels are laid out as tabs in a horizontal manner. The states of the tabs
+/// are handled internally and the index of the selected tab is updated via [onSelectionUpdated].
 class ToggleBar extends StatefulWidget {
-  final Color backgroundColor, selectedTabColor, selectedTextColor, textColor;
+  /// TextStyle for the labels.
+  final TextStyle labelTextStyle;
+
+  /// Background color of the toggle bar.
+  final Color backgroundColor;
+
+  /// Color of the selected tab.
+  final Color selectedTabColor;
+
+  /// Color of text in the selected tab. This will override [color] in [labelTextStyle].
+  final Color selectedTextColor;
+
+  /// Color of text in unselected tabs. If the tab is selected, text color will be overriden by [selectedTextColor].
+  final Color textColor;
+
+  /// Labels to be displayed as tabs in the toggle bar.
   final List<String> labels;
+
+  /// Callback function which returns the index of the currently selected tab.
   final Function(int) onSelectionUpdated;
 
   ToggleBar(
@@ -16,6 +37,7 @@ class ToggleBar extends StatefulWidget {
       this.selectedTabColor = Colors.deepPurple,
       this.selectedTextColor = Colors.white,
       this.textColor = Colors.white,
+      this.labelTextStyle = const TextStyle(),
       this.onSelectionUpdated});
 
   @override
@@ -33,6 +55,7 @@ class _ToggleBarState extends State<ToggleBar> {
     _hashMap = LinkedHashMap.fromIterable(widget.labels,
         value: (value) => value = false);
     _hashMap[widget.labels[0]] = true;
+
     super.initState();
   }
 
@@ -48,6 +71,7 @@ class _ToggleBarState extends State<ToggleBar> {
         child: ListView.builder(
           itemCount: widget.labels.length,
           scrollDirection: Axis.horizontal,
+          physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return GestureDetector(
                 child: Container(
@@ -55,16 +79,12 @@ class _ToggleBarState extends State<ToggleBar> {
                         widget.labels.length,
                     padding:
                         EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
-                    child: Text(
-                      _hashMap.keys.elementAt(index),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: _hashMap.values.elementAt(index)
-                              ? widget.selectedTextColor
-                              : widget.textColor),
-                    ),
+                    child: Text(_hashMap.keys.elementAt(index),
+                        textAlign: TextAlign.center,
+                        style: widget.labelTextStyle.apply(
+                            color: _hashMap.values.elementAt(index)
+                                ? widget.selectedTextColor
+                                : widget.textColor)),
                     decoration: BoxDecoration(
                         color: _hashMap.values.elementAt(index)
                             ? widget.selectedTabColor
@@ -76,7 +96,7 @@ class _ToggleBarState extends State<ToggleBar> {
                                       (MediaQuery.of(context).size.width - 32)))
                               .round() -
                           1)
-                      .clamp(0, 6);
+                      .clamp(0, widget.labels.length);
 
                   if (calculatedIndex != _selectedIndex) {
                     _updateSelection(calculatedIndex);
