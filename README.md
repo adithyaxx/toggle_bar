@@ -4,13 +4,13 @@
 
 A dart package to display a horizontal bar of customisable toggle tabs. Supports iOS and Android.
 
-<img src="demo.gif" height="512">
+<img src="https://raw.githubusercontent.com/adithyaxx/toggle_bar/master/demo.gif" height="512">
 
 ## Installation
 Depend on it.
 ``` dart
 dependencies:
-  toggle_bar: ^0.0.3
+  toggle_bar: ^0.0.4
 ```
 
 ## Usage
