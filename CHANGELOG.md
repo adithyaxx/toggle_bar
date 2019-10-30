@@ -4,3 +4,9 @@
 ## 0.0.2
 * Added textstyle customisation
 * Added documentation
+
+## 0.0.3
+* Added border customisation
+
+## 0.0.4
+* Fixed a bug causing RangeError

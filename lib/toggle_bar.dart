@@ -16,6 +16,9 @@ class ToggleBar extends StatefulWidget {
   /// Background color of the toggle bar.
   final Color backgroundColor;
 
+  /// Background border of the toggle bar.
+  final BoxBorder backgroundBorder;
+
   /// Color of the selected tab.
   final Color selectedTabColor;
 
@@ -34,6 +37,7 @@ class ToggleBar extends StatefulWidget {
   ToggleBar(
       {@required this.labels,
       this.backgroundColor = Colors.black,
+      this.backgroundBorder,
       this.selectedTabColor = Colors.deepPurple,
       this.selectedTextColor = Colors.white,
       this.textColor = Colors.white,
@@ -67,6 +71,7 @@ class _ToggleBarState extends State<ToggleBar> {
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
             color: widget.backgroundColor,
+            border: widget.backgroundBorder,
             borderRadius: BorderRadius.circular(50)),
         child: ListView.builder(
           itemCount: widget.labels.length,
@@ -96,7 +101,7 @@ class _ToggleBarState extends State<ToggleBar> {
                                       (MediaQuery.of(context).size.width - 32)))
                               .round() -
                           1)
-                      .clamp(0, widget.labels.length);
+                      .clamp(0, widget.labels.length - 1);
 
                   if (calculatedIndex != _selectedIndex) {
                     _updateSelection(calculatedIndex);
