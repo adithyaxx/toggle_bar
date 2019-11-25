@@ -1,7 +1,6 @@
 name: toggle_bar
 description: A horizontal bar of toggle tabs with customisable colors and labels. 
 version: 0.0.4
-author: Prem Adithya <hello@adithya.pw>
 homepage: https://github.com/adithyaxx/toggle_bar
 
 environment:
