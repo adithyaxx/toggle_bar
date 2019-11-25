@@ -1,6 +1,6 @@
 # toggle_bar
 
-[![pub package](https://img.shields.io/pub/v/toggle_bar.svg)](https://pub.dartlang.org/packages/toggle_bar)
+[![pub package](https://img.shields.io/pub/v/toggle_bar.svg)](https://pub.dartlang.org/packages/toggle_bar) [![Build Status](https://travis-ci.com/adithyaxx/toggle_bar.svg?branch=master)](https://travis-ci.com/adithyaxx/toggle_bar)
 
 A dart package to display a horizontal bar of customisable toggle tabs. Supports iOS and Android.
 

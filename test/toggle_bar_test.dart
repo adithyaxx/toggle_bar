@@ -1,13 +1,11 @@
-import 'package:flutter_test/flutter_test.dart';
-
-import 'package:toggle_bar/toggle_bar.dart';
+import 'package:test/test.dart';
+import '../lib/toggle_bar.dart';
 
 void main() {
-  // test('adds one to input values', () {
-  //   final calculator = Calculator();
-  //   expect(calculator.addOne(2), 3);
-  //   expect(calculator.addOne(-7), -6);
-  //   expect(calculator.addOne(0), 1);
-  //   expect(() => calculator.addOne(null), throwsNoSuchMethodError);
-  // });
+  test('Initialise toggle bar', () async {
+    final labels = ['a', 'b', 'c', 'd', 'e'];
+    final toggleBar = ToggleBar(labels: labels);
+    if (toggleBar.labels == labels) return true;
+    return false;
+  });
 }
