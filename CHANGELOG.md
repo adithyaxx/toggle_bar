@@ -10,3 +10,6 @@
 
 ## 0.0.4
 * Fixed a bug causing RangeError
+
+## 1.0.0
+* Added border radius customisation

@@ -34,6 +34,9 @@ class ToggleBar extends StatefulWidget {
   /// Callback function which returns the index of the currently selected tab.
   final Function(int) onSelectionUpdated;
 
+  /// Border radius of the bar and selected tab indicator.
+  final double borderRadius;
+
   ToggleBar(
       {@required this.labels,
       this.backgroundColor = Colors.black,
@@ -42,7 +45,8 @@ class ToggleBar extends StatefulWidget {
       this.selectedTextColor = Colors.white,
       this.textColor = Colors.white,
       this.labelTextStyle = const TextStyle(),
-      this.onSelectionUpdated});
+      this.onSelectionUpdated,
+      this.borderRadius = 50});
 
   @override
   State<StatefulWidget> createState() {
@@ -72,7 +76,7 @@ class _ToggleBarState extends State<ToggleBar> {
         decoration: BoxDecoration(
             color: widget.backgroundColor,
             border: widget.backgroundBorder,
-            borderRadius: BorderRadius.circular(50)),
+            borderRadius: BorderRadius.circular(widget.borderRadius)),
         child: ListView.builder(
           itemCount: widget.labels.length,
           scrollDirection: Axis.horizontal,
@@ -94,7 +98,7 @@ class _ToggleBarState extends State<ToggleBar> {
                         color: _hashMap.values.elementAt(index)
                             ? widget.selectedTabColor
                             : null,
-                        borderRadius: BorderRadius.circular(50))),
+                        borderRadius: BorderRadius.circular(widget.borderRadius))),
                 onHorizontalDragUpdate: (dragUpdate) async {
                   int calculatedIndex = ((widget.labels.length *
                                   (dragUpdate.globalPosition.dx /

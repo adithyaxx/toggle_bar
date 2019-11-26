@@ -10,7 +10,7 @@ A dart package to display a horizontal bar of customisable toggle tabs. Supports
 Depend on it.
 ``` dart
 dependencies:
-  toggle_bar: ^0.0.4
+  toggle_bar: ^1.0.0
 ```
 
 ## Usage

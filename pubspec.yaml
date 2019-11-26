@@ -1,6 +1,6 @@
 name: toggle_bar
 description: A horizontal bar of toggle tabs with customisable colors and labels. 
-version: 0.0.4
+version: 1.0.0
 homepage: https://github.com/adithyaxx/toggle_bar
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  test: ^1.9.4
+  test: any
   flutter_test:
     sdk: flutter
 
