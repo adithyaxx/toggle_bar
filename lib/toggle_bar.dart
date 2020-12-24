@@ -69,55 +69,58 @@ class _ToggleBarState extends State<ToggleBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 48,
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            color: widget.backgroundColor,
-            border: widget.backgroundBorder,
-            borderRadius: BorderRadius.circular(widget.borderRadius)),
-        child: ListView.builder(
-          itemCount: widget.labels.length,
-          scrollDirection: Axis.horizontal,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                child: Container(
-                    width: (MediaQuery.of(context).size.width - 32) /
-                        widget.labels.length,
-                    padding:
-                        EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
-                    child: Text(_hashMap.keys.elementAt(index),
-                        textAlign: TextAlign.center,
-                        style: widget.labelTextStyle.apply(
-                            color: _hashMap.values.elementAt(index)
-                                ? widget.selectedTextColor
-                                : widget.textColor)),
-                    decoration: BoxDecoration(
-                        color: _hashMap.values.elementAt(index)
-                            ? widget.selectedTabColor
-                            : null,
-                        borderRadius: BorderRadius.circular(widget.borderRadius))),
-                onHorizontalDragUpdate: (dragUpdate) async {
-                  int calculatedIndex = ((widget.labels.length *
-                                  (dragUpdate.globalPosition.dx /
-                                      (MediaQuery.of(context).size.width - 32)))
-                              .round() -
-                          1)
-                      .clamp(0, widget.labels.length - 1);
+    return LayoutBuilder(
+        builder: (context, constraints) {
+          return Container(
+              height: 50,
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                  color: widget.backgroundColor,
+                  border: widget.backgroundBorder,
+                  borderRadius: BorderRadius.circular(widget.borderRadius)),
+              child: ListView.builder(
+                itemCount: widget.labels.length,
+                scrollDirection: Axis.horizontal,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                      child: Container(
+                          width: (constraints.maxWidth - 16) /
+                              widget.labels.length,
+                          child: Center(
+                            child: Text(_hashMap.keys.elementAt(index),
+                                textAlign: TextAlign.center,
+                                style: widget.labelTextStyle.apply(
+                                    color: _hashMap.values.elementAt(index)
+                                        ? widget.selectedTextColor
+                                        : widget.textColor)),
+                          ),
+                          decoration: BoxDecoration(
+                              color: _hashMap.values.elementAt(index)
+                                  ? widget.selectedTabColor
+                                  : null,
+                              borderRadius: BorderRadius.circular(widget.borderRadius))),
+                      onHorizontalDragUpdate: (dragUpdate) async {
+                        int calculatedIndex = ((widget.labels.length *
+                            (dragUpdate.globalPosition.dx /
+                                (constraints.maxWidth - 16)))
+                            .round() -
+                            1)
+                            .clamp(0, widget.labels.length - 1);
 
-                  if (calculatedIndex != _selectedIndex) {
-                    _updateSelection(calculatedIndex);
-                  }
+                        if (calculatedIndex != _selectedIndex) {
+                          _updateSelection(calculatedIndex);
+                        }
+                      },
+                      onTap: () async {
+                        if (index != _selectedIndex) {
+                          _updateSelection(index);
+                        }
+                      });
                 },
-                onTap: () async {
-                  if (index != _selectedIndex) {
-                    _updateSelection(index);
-                  }
-                });
-          },
-        ));
+              ));
+        }
+    );
   }
 
   _updateSelection(int index) {
