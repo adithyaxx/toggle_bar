@@ -17,7 +17,7 @@ class ToggleBar extends StatefulWidget {
   final Color backgroundColor;
 
   /// Background border of the toggle bar.
-  final BoxBorder backgroundBorder;
+  final BoxBorder? backgroundBorder;
 
   /// Color of the selected tab.
   final Color selectedTabColor;
@@ -32,13 +32,13 @@ class ToggleBar extends StatefulWidget {
   final List<String> labels;
 
   /// Callback function which returns the index of the currently selected tab.
-  final Function(int) onSelectionUpdated;
+  final Function(int)? onSelectionUpdated;
 
   /// Border radius of the bar and selected tab indicator.
   final double borderRadius;
 
   ToggleBar(
-      {@required this.labels,
+      {required this.labels,
       this.backgroundColor = Colors.black,
       this.backgroundBorder,
       this.selectedTabColor = Colors.deepPurple,
@@ -69,64 +69,63 @@ class _ToggleBarState extends State<ToggleBar> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (context, constraints) {
-          return Container(
-              height: 50,
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                  color: widget.backgroundColor,
-                  border: widget.backgroundBorder,
-                  borderRadius: BorderRadius.circular(widget.borderRadius)),
-              child: ListView.builder(
-                itemCount: widget.labels.length,
-                scrollDirection: Axis.horizontal,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                      child: Container(
-                          width: (constraints.maxWidth - 16) /
-                              widget.labels.length,
-                          child: Center(
-                            child: Text(_hashMap.keys.elementAt(index),
-                                textAlign: TextAlign.center,
-                                style: widget.labelTextStyle.apply(
-                                    color: _hashMap.values.elementAt(index)
-                                        ? widget.selectedTextColor
-                                        : widget.textColor)),
-                          ),
-                          decoration: BoxDecoration(
-                              color: _hashMap.values.elementAt(index)
-                                  ? widget.selectedTabColor
-                                  : null,
-                              borderRadius: BorderRadius.circular(widget.borderRadius))),
-                      onHorizontalDragUpdate: (dragUpdate) async {
-                        int calculatedIndex = ((widget.labels.length *
-                            (dragUpdate.globalPosition.dx /
-                                (constraints.maxWidth - 16)))
-                            .round() -
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+          height: 50,
+          padding: EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+              color: widget.backgroundColor,
+              border: widget.backgroundBorder,
+              borderRadius: BorderRadius.circular(widget.borderRadius)),
+          child: ListView.builder(
+            itemCount: widget.labels.length,
+            scrollDirection: Axis.horizontal,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                  child: Container(
+                      width: (constraints.maxWidth - 16) / widget.labels.length,
+                      child: Center(
+                        child: Text(_hashMap.keys.elementAt(index),
+                            textAlign: TextAlign.center,
+                            style: widget.labelTextStyle.apply(
+                                color: _hashMap.values.elementAt(index)
+                                    ? widget.selectedTextColor
+                                    : widget.textColor)),
+                      ),
+                      decoration: BoxDecoration(
+                          color: _hashMap.values.elementAt(index)
+                              ? widget.selectedTabColor
+                              : null,
+                          borderRadius:
+                              BorderRadius.circular(widget.borderRadius))),
+                  onHorizontalDragUpdate: (dragUpdate) async {
+                    int calculatedIndex = ((widget.labels.length *
+                                    (dragUpdate.globalPosition.dx /
+                                        (constraints.maxWidth - 16)))
+                                .round() -
                             1)
-                            .clamp(0, widget.labels.length - 1);
+                        .clamp(0, widget.labels.length - 1);
 
-                        if (calculatedIndex != _selectedIndex) {
-                          _updateSelection(calculatedIndex);
-                        }
-                      },
-                      onTap: () async {
-                        if (index != _selectedIndex) {
-                          _updateSelection(index);
-                        }
-                      });
-                },
-              ));
-        }
-    );
+                    if (calculatedIndex != _selectedIndex) {
+                      _updateSelection(calculatedIndex);
+                    }
+                  },
+                  onTap: () async {
+                    if (index != _selectedIndex) {
+                      _updateSelection(index);
+                    }
+                  });
+            },
+          ));
+    });
   }
 
   _updateSelection(int index) {
+    final onSelectionUpdated = widget.onSelectionUpdated;
     setState(() {
       _selectedIndex = index;
-      widget.onSelectionUpdated(_selectedIndex);
+      if (onSelectionUpdated != null) onSelectionUpdated(_selectedIndex);
       _hashMap.updateAll((label, selected) => selected = false);
       _hashMap[_hashMap.keys.elementAt(index)] = true;
     });

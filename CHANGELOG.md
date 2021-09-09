@@ -13,3 +13,6 @@
 
 ## 1.0.0
 * Added border radius customisation
+
+## 1.1.0
+* Nullsafety support
