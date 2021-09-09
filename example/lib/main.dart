@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ToggleBar(
               labels: labels,
-              backgroundColor: Colors.grey[800],
+              backgroundColor: Colors.grey,
               onSelectionUpdated: (index) =>
                   setState(() => currentIndex = index),
             ),
