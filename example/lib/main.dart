@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ToggleBar(
               labels: labels,
-              backgroundColor: Colors.grey[800],
+              backgroundColor: Colors.grey,
               onSelectionUpdated: (index) =>
                   setState(() => currentIndex = index),
             ),
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               labels[currentIndex],
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.bodyText1,
             )
           ],
         ),
